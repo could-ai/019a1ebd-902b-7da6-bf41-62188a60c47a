@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:couldai_user_app/app/utils/responsive.dart';
+import 'package:couldai_user_app/features/home/widgets/category_section.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = TextStyle(
+        fontSize: Responsive.isDesktop(context) ? 48 : 32,
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).textTheme.bodyLarge?.color);
+
     return Column(
       children: [
         // Hero Section
@@ -17,15 +24,19 @@ class HomeBody extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Build Smarter. Launch Faster.',
-                  style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                const Text(
-                  'With AshiVion Templates.',
-                  style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                SizedBox(
+                  height: Responsive.isDesktop(context) ? 120 : 80,
+                  child: DefaultTextStyle(
+                    style: textStyle,
+                    textAlign: TextAlign.center,
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TyperAnimatedText('Build Smarter. Launch Faster.'),
+                        TyperAnimatedText('With AshiVion Templates.'),
+                      ],
+                      repeatForever: true,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 30),
                 Row(
@@ -46,6 +57,8 @@ class HomeBody extends StatelessWidget {
             ),
           ),
         ),
+        // Category Section
+        const CategorySection(),
         // Other sections will be added here
       ],
     );
